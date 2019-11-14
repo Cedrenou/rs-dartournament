@@ -4,6 +4,7 @@ const Player = require('../models/player')
 
 /* GET All players */
 router.get('/players', (req, res) => {
+	console.log('req.user', req.user)
 	Player.find()
 		.sort({'id': 1})
 		.exec()
@@ -42,7 +43,7 @@ router.delete('/player/:id', (req, res) => {
 		if (err) {
 			return res.status(500).json(err)
 		}
-		res.status(200).json({msg: `player with id ${player._id} was deleted`})
+		res.status(202).json({msg: `player with id ${player._id}  deleted`})
 	})
 })
 

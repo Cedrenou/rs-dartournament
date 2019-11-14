@@ -7,14 +7,59 @@ const app = express()
 
 const playersRouter = require('./api/v1/players')
 const tournamentsRouter = require('./api/v1/tournaments')
+const authRouter = require('./auth/routes/index')
 
 app.set('port', (process.env.port || 3000))
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(cors())
+
+// PASSPORT
+const passport = require('passport')
+const cookieParser = require('cookie-parser')
+const seesion = require('express-session')
+const Strategy = require('passport-local').Strategy
+const User = require('./auth/models/user')
+
+app.use(cookieParser())
+app.use(seesion({
+	secret: 'my super secret',
+	resave: true,
+	saveUninitialized: true
+}))
+app.use(passport.initialize())
+app.use(passport.session())
+
+passport.serializeUser((user, cb) => {
+	cb(null, user)
+})
+
+passport.deserializeUser((user, cb) => {
+	cb(null, user)
+})
+
+passport.use(new Strategy({
+	userNameField: 'userName',
+	passwordField: 'password'
+}, (name, pwd, cb) => {
+	User.findOne({userName: name}, (err, user) => {
+		if (err) {
+			console.error('could not find in mongoDB', err)
+		}
+		if (user.password !== pwd) {
+			console.log('wrong password')
+			cb(null, false)
+		} else {
+			console.log(`${name} found in MongoDB and authenticated`)
+			cb(null, user)
+		}
+	})
+}))
+
 app.use('/api/v1', playersRouter)
 app.use('/api/v1', tournamentsRouter)
+app.use('/auth', authRouter)
 app.use((req, res) => {
 	const err = new Error('404 - Not found !')
 	err.status = 404
