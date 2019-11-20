@@ -23,7 +23,26 @@ router.get('/player/:id', (req, res) => {
 		.catch(err => res.status(500).json({message: `player with id ${id} not found !`, error: err}))
 })
 
-/* POST */
+/**
+ * POST
+ **/
+
+/* RaZ */
+router.post('/player/raz', (req, res) => {
+	const id = req.body._id
+
+	const filter = {_id: id}
+	const update = {points: 0}
+
+	Player.findOneAndUpdate(filter, update, (err) => {
+		if (err) {
+			return res.status(500).json(err)
+		}
+		res.status(202).json({msg: `Reset points to 0`})
+	})
+})
+
+/* FIRST */
 router.post('/player/first-place', (req, res) => {
 	const id = req.body._id
 	const pts = req.body.points
@@ -31,14 +50,15 @@ router.post('/player/first-place', (req, res) => {
 	const filter = {_id: id}
 	const update = {points: pts + 5}
 
-	Player.findOneAndUpdate(filter, update, (err, player) => {
+	Player.findOneAndUpdate(filter, update, (err) => {
 		if (err) {
 			return res.status(500).json(err)
 		}
-		res.status(202).json({msg: `UPDATED ${player}`})
+		res.status(202).json({msg: `UPDATED points`})
 	})
 })
 
+/* SECOND */
 router.post('/player/second-place', (req, res) => {
 	const id = req.body._id
 	const pts = req.body.points
@@ -46,14 +66,15 @@ router.post('/player/second-place', (req, res) => {
 	const filter = {_id: id}
 	const update = {points: pts + 3}
 
-	Player.findOneAndUpdate(filter, update, (err, player) => {
+	Player.findOneAndUpdate(filter, update, (err) => {
 		if (err) {
 			return res.status(500).json(err)
 		}
-		res.status(202).json({msg: `UPDATED ${player}`})
+		res.status(202).json({msg: `UPDATED points`})
 	})
 })
 
+/* THIRD */
 router.post('/player/third-place', (req, res) => {
 	const id = req.body._id
 	const pts = req.body.points
@@ -61,14 +82,15 @@ router.post('/player/third-place', (req, res) => {
 	const filter = {_id: id}
 	const update = {points: pts + 1}
 
-	Player.findOneAndUpdate(filter, update, (err, player) => {
+	Player.findOneAndUpdate(filter, update, (err) => {
 		if (err) {
 			return res.status(500).json(err)
 		}
-		res.status(202).json({msg: `UPDATED ${player}`})
+		res.status(202).json({msg: `UPDATED points}`})
 	})
 })
 
+/* POST Add New Player */
 router.post('/player', (req, res) => {
 	console.log('req.body', req.body)
 	const player = new Player(req.body)
