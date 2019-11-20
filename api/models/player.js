@@ -4,6 +4,10 @@ const playerSchema = new mongoose.Schema({
 	firstName: String,
 	lastName: String,
 	points: Number,
+	nbGamesPlayed: Number,
+	nbFirstPlace: Number,
+	nbSecondPlace: Number,
+	nbThirdPlace: Number
 })
 
 

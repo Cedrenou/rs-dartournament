@@ -46,9 +46,10 @@ router.post('/player/raz', (req, res) => {
 router.post('/player/first-place', (req, res) => {
 	const id = req.body._id
 	const pts = req.body.points
+	const nbFirstPlace = req.body.nbFirstPlace
 
 	const filter = {_id: id}
-	const update = {points: pts + 5}
+	const update = {points: pts + 5, nbFirstPlace: nbFirstPlace + 1}
 
 	Player.findOneAndUpdate(filter, update, (err) => {
 		if (err) {
@@ -62,9 +63,10 @@ router.post('/player/first-place', (req, res) => {
 router.post('/player/second-place', (req, res) => {
 	const id = req.body._id
 	const pts = req.body.points
+	const nbSecondPlace = req.body.nbSecondPlace
 
 	const filter = {_id: id}
-	const update = {points: pts + 3}
+	const update = {points: pts + 3, nbSecondPlace: nbSecondPlace + 1}
 
 	Player.findOneAndUpdate(filter, update, (err) => {
 		if (err) {
@@ -78,9 +80,10 @@ router.post('/player/second-place', (req, res) => {
 router.post('/player/third-place', (req, res) => {
 	const id = req.body._id
 	const pts = req.body.points
+	const nbThirdPlace = req.body.nbThirdPlace
 
 	const filter = {_id: id}
-	const update = {points: pts + 1}
+	const update = {points: pts + 1, nbThirdPlace: nbThirdPlace + 1}
 
 	Player.findOneAndUpdate(filter, update, (err) => {
 		if (err) {
