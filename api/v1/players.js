@@ -4,7 +4,6 @@ const Player = require('../models/player')
 
 /* GET All players */
 router.get('/players', (req, res) => {
-	console.log('req.user', req.user)
 	Player.find()
 		.sort({'id': 1})
 		.exec()
@@ -25,6 +24,51 @@ router.get('/player/:id', (req, res) => {
 })
 
 /* POST */
+router.post('/player/first-place', (req, res) => {
+	const id = req.body._id
+	const pts = req.body.points
+
+	const filter = {_id: id}
+	const update = {points: pts + 5}
+
+	Player.findOneAndUpdate(filter, update, (err, player) => {
+		if (err) {
+			return res.status(500).json(err)
+		}
+		res.status(202).json({msg: `UPDATED ${player}`})
+	})
+})
+
+router.post('/player/second-place', (req, res) => {
+	const id = req.body._id
+	const pts = req.body.points
+
+	const filter = {_id: id}
+	const update = {points: pts + 3}
+
+	Player.findOneAndUpdate(filter, update, (err, player) => {
+		if (err) {
+			return res.status(500).json(err)
+		}
+		res.status(202).json({msg: `UPDATED ${player}`})
+	})
+})
+
+router.post('/player/third-place', (req, res) => {
+	const id = req.body._id
+	const pts = req.body.points
+
+	const filter = {_id: id}
+	const update = {points: pts + 1}
+
+	Player.findOneAndUpdate(filter, update, (err, player) => {
+		if (err) {
+			return res.status(500).json(err)
+		}
+		res.status(202).json({msg: `UPDATED ${player}`})
+	})
+})
+
 router.post('/player', (req, res) => {
 	console.log('req.body', req.body)
 	const player = new Player(req.body)
