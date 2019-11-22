@@ -32,7 +32,13 @@ router.post('/player/raz', (req, res) => {
 	const id = req.body._id
 
 	const filter = {_id: id}
-	const update = {points: 0}
+	const update = {
+		points: 0,
+		nbGamesPlayed: 0,
+		nbFirstPlace: 0,
+		nbSecondPlace: 0,
+		nbThirdPlace: 0
+	}
 
 	Player.findOneAndUpdate(filter, update, (err) => {
 		if (err) {
