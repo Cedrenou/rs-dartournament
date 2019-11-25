@@ -53,9 +53,14 @@ router.post('/player/first-place', (req, res) => {
 	const id = req.body._id
 	const pts = req.body.points
 	const nbFirstPlace = req.body.nbFirstPlace
+	const nbGamesPlayed = req.body.nbGamesPlayed
 
 	const filter = {_id: id}
-	const update = {points: pts + 5, nbFirstPlace: nbFirstPlace + 1}
+	const update = {
+		points: pts + 5,
+		nbFirstPlace: nbFirstPlace + 1,
+		nbGamesPlayed: nbGamesPlayed + 1
+	}
 
 	Player.findOneAndUpdate(filter, update, (err) => {
 		if (err) {
@@ -70,9 +75,14 @@ router.post('/player/second-place', (req, res) => {
 	const id = req.body._id
 	const pts = req.body.points
 	const nbSecondPlace = req.body.nbSecondPlace
+	const nbGamesPlayed = req.body.nbGamesPlayed
 
 	const filter = {_id: id}
-	const update = {points: pts + 3, nbSecondPlace: nbSecondPlace + 1}
+	const update = {
+		points: pts + 3,
+		nbSecondPlace: nbSecondPlace + 1,
+		nbGamesPlayed: nbGamesPlayed + 1
+	}
 
 	Player.findOneAndUpdate(filter, update, (err) => {
 		if (err) {
@@ -87,9 +97,14 @@ router.post('/player/third-place', (req, res) => {
 	const id = req.body._id
 	const pts = req.body.points
 	const nbThirdPlace = req.body.nbThirdPlace
+	const nbGamesPlayed = req.body.nbGamesPlayed
 
 	const filter = {_id: id}
-	const update = {points: pts + 1, nbThirdPlace: nbThirdPlace + 1}
+	const update = {
+		points: pts + 1,
+		nbThirdPlace: nbThirdPlace + 1,
+		nbGamesPlayed: nbGamesPlayed + 1
+	}
 
 	Player.findOneAndUpdate(filter, update, (err) => {
 		if (err) {
