@@ -2,6 +2,10 @@ const express = require('express')
 const router = express.Router()
 const Player = require('../models/player')
 
+
+/***************************
+ * 		GET REQUEST
+ **************************/
 /* GET All players */
 router.get('/players', (req, res) => {
 	Player.find()
@@ -23,9 +27,9 @@ router.get('/player/:id', (req, res) => {
 		.catch(err => res.status(500).json({message: `player with id ${id} not found !`, error: err}))
 })
 
-/**
- * POST
- **/
+/***************************
+ * 		POST REQUEST
+ **************************/
 
 /* RaZ */
 router.post('/player/raz', (req, res) => {

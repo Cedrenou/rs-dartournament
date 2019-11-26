@@ -66,9 +66,7 @@ app.use((req, res) => {
 	res.json({msg: '404 Not Found !!', err: err})
 })
 
-
 const uri ="mongodb+srv://Cedric:DartDB@dart-cluster-ckd4d.gcp.mongodb.net/test?retryWrites=true&w=majority"
-
 const devUri = 'mongodb://localhost:27017/dart-tournament'
 
 mongoose.connect(uri, {useUnifiedTopology: true, useNewUrlParser: true})
@@ -77,7 +75,7 @@ connection.on('error', (err) => {
 })
 
 connection.once('open', () => {
-	console.log('Connected to mongoDB')
+	console.log(`Connected to mongoDB with uri : ${uri}`)
 	app.listen(app.get('port'), () => {
 		console.log(`express server listening on port ${app.get('port')} !!!`)
 	})
