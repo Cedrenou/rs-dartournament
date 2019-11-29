@@ -1,6 +1,6 @@
 const express = require('express')
-const cors = require('cors')
-const bodyParser = require('body-parser')
+//const cors = require('cors')
+//const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const connection = mongoose.connection
 const app = express()
@@ -10,16 +10,16 @@ const playersRouter = require('./api/v1/players')
 
 app.set('port', ((process.env.PORT, '0.0.0.0') || 5000))
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: false}))
-app.use(cors())
+//app.use(bodyParser.json())
+//app.use(bodyParser.urlencoded({extended: false}))
+//app.use(cors())
 
 // Say HELLO
 app.get('/', (req, res) => {
 	res.send(JSON.stringify({Hello: 'World'}))
 })
 
-app.use('/api/v1', playersRouter)
+//app.use('/api/v1', playersRouter)
 //app.use('/api/v1', tournamentsRouter)
 app.use((req, res) => {
 	const err = new Error('404 - Not found !')
