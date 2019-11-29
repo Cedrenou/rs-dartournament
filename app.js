@@ -31,14 +31,17 @@ const url = 'mongodb+srv://Cedric:DartDB@cluster0-ckd4d.mongodb.net/test?retryWr
 const devUri = 'mongodb://localhost:27017/dart-tournament'
 
 
-mongoose.connect(url, {useNewUrlParser: true, dbName:'test'})
-connection.on('error', (err) => {
-	console.error(`Connection to mongoDB error : ${err.message}`)
-})
-
-connection.once('open', () => {
-	console.log(`Connected to mongoDB with uri : ${url}`)
-	app.listen(app.get('port'), () => {
-		console.log(`express server listening on port ${app.get('port')} !!!`)
+mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true, connectTimeoutMS: 1000}).then(() => {
+	connection.on('error', (err) => {
+		console.error(`Connection to mongoDB error : ${err.message}`)
 	})
+
+	connection.once('open', () => {
+		console.log(`Connected to mongoDB with uri : ${url}`)
+		app.listen(app.get('port'), () => {
+			console.log(`express server listening on port ${app.get('port')} !!!`)
+		})
+	})
+}, err => {
+	console.log(err)
 })
