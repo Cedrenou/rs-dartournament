@@ -1,4 +1,6 @@
 const mongoose = require('mongoose')
+mongoose.set('bufferCommands', false)
+
 
 const userSchema = new mongoose.Schema({
 	userName: {type: String, required: true},
