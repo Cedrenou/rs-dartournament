@@ -6,7 +6,7 @@ const connection = mongoose.connection
 const app = express()
 
 const playersRouter = require('./api/v1/players')
-const tournamentsRouter = require('./api/v1/tournaments')
+//const tournamentsRouter = require('./api/v1/tournaments')
 
 app.set('port', ((process.env.PORT, '0.0.0.0') || 5000))
 
@@ -20,14 +20,14 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/v1', playersRouter)
-app.use('/api/v1', tournamentsRouter)
+//app.use('/api/v1', tournamentsRouter)
 app.use((req, res) => {
 	const err = new Error('404 - Not found !')
 	err.status = 404
 	res.json({msg: '404 Not Found !!', err: err})
 })
 
-const url = 'mongodb+srv://Cedric:DartDB@cluster0-ckd4d.mongodb.net/test?retryWrites=true&w=majority'
+const url = 'mongodb+srv://Cedric:DartDB@cluster0-ckd4d.mongodb.net/test?retryWrites=true&w=majority';
 const devUri = 'mongodb://localhost:27017/dart-tournament'
 
 
