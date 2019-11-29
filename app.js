@@ -7,13 +7,18 @@ const app = express()
 
 const playersRouter = require('./api/v1/players')
 const tournamentsRouter = require('./api/v1/tournaments')
-const authRouter = require('./auth/routes/index')
 
 app.set('port', (process.env.port || 3000))
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(cors())
+
+// Say HELLO
+app.get('/', (req, res) => {
+	res.send(JSON.stringify({Hello: 'World'}))
+})
+
 
 // PASSPORT
 const passport = require('passport')
@@ -59,23 +64,22 @@ passport.use(new Strategy({
 
 app.use('/api/v1', playersRouter)
 app.use('/api/v1', tournamentsRouter)
-app.use('/auth', authRouter)
 app.use((req, res) => {
 	const err = new Error('404 - Not found !')
 	err.status = 404
 	res.json({msg: '404 Not Found !!', err: err})
 })
 
-const uri ="mongodb+srv://Cedric:DartDB@dart-cluster-ckd4d.gcp.mongodb.net/test?retryWrites=true&w=majority"
+const url ="mongodb+srv://Cedric:DartDB@dart-cluster-ckd4d.gcp.mongodb.net/test?retryWrites=true&w=majority"
 const devUri = 'mongodb://localhost:27017/dart-tournament'
 
-mongoose.connect(uri, {useUnifiedTopology: true, useNewUrlParser: true})
+mongoose.connect(devUri, {useUnifiedTopology: true, useNewUrlParser: true})
 connection.on('error', (err) => {
 	console.error(`Connection to mongoDB error : ${err.message}`)
 })
 
 connection.once('open', () => {
-	console.log(`Connected to mongoDB with uri : ${uri}`)
+	console.log(`Connected to mongoDB with uri : ${url}`)
 	app.listen(app.get('port'), () => {
 		console.log(`express server listening on port ${app.get('port')} !!!`)
 	})
