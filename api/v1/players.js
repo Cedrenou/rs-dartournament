@@ -4,7 +4,7 @@ const Player = require('../models/player')
 
 
 /***************************
- * 		GET REQUEST
+ *        GET REQUEST
  **************************/
 /* GET All players */
 router.get('/players', (req, res) => {
@@ -27,8 +27,16 @@ router.get('/player/:id', (req, res) => {
 		.catch(err => res.status(500).json({message: `player with id ${id} not found !`, error: err}))
 })
 
+/* GET Top Player */
+router.get('/top-player', (req, res) => {
+	Player.find()
+		.sort({points:-1})
+		.limit(1)
+		.then(topPlayer => res.status(200).json(topPlayer))
+})
+
 /***************************
- * 		POST REQUEST
+ *        POST REQUEST
  **************************/
 
 /* RaZ */
@@ -118,7 +126,7 @@ router.post('/player/third-place', (req, res) => {
 	})
 })
 
-/* POST Add New Player */
+/* POST Create New Player */
 router.post('/player', (req, res) => {
 	console.log('req.body', req.body)
 	const player = new Player(req.body)
