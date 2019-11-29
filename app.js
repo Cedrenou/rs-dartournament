@@ -8,7 +8,7 @@ const app = express()
 const playersRouter = require('./api/v1/players')
 const tournamentsRouter = require('./api/v1/tournaments')
 
-app.set('port', (process.env.port || 3000))
+app.set('port', (process.env.port || 8080))
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
