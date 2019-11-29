@@ -8,7 +8,7 @@ const app = express()
 const playersRouter = require('./api/v1/players')
 const tournamentsRouter = require('./api/v1/tournaments')
 
-app.set('port', (process.env.port || 5000))
+app.set('port', ((process.env.PORT, '0.0.0.0') || 5000))
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
@@ -38,7 +38,7 @@ connection.on('error', (err) => {
 
 connection.once('open', () => {
 	console.log(`Connected to mongoDB with uri : ${url}`)
-	app.listen((process.env.PORT, '0.0.0.0'), () => {
+	app.listen(app.get('port'), () => {
 		console.log(`express server listening on port ${app.get('port')} !!!`)
 	})
 })
