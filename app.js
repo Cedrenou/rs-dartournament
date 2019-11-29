@@ -30,6 +30,8 @@ app.use((req, res) => {
 const url = 'mongodb+srv://Cedric:DartDB@dart-cluster-ckd4d.gcp.mongodb.net/test?retryWrites=true&w=majority'
 const devUri = 'mongodb://localhost:27017/dart-tournament'
 
+mongoose.set('bufferCommands', false)
+
 mongoose.connect(url, {useNewUrlParser: true})
 connection.on('error', (err) => {
 	console.error(`Connection to mongoDB error : ${err.message}`)
