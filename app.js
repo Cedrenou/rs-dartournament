@@ -38,7 +38,7 @@ connection.on('error', (err) => {
 
 connection.once('open', () => {
 	console.log(`Connected to mongoDB with uri : ${url}`)
-	app.listen(app.get('port'), () => {
+	app.listen((process.env.PORT, '0.0.0.0'), () => {
 		console.log(`express server listening on port ${app.get('port')} !!!`)
 	})
 })
