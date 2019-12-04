@@ -66,7 +66,6 @@ router.post('/player/first-place', (req, res) => {
 	const pts = req.body.points
 	const nbFirstPlace = req.body.nbFirstPlace
 	const nbGamesPlayed = req.body.nbGamesPlayed
-
 	const filter = {_id: id}
 	const update = {
 		points: pts + 5,
