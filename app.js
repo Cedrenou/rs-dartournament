@@ -1,11 +1,12 @@
 const express = require('express')
+const serverless = require('serverless-http')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const connection = mongoose.connection
 const app = express()
 
-const playersRouter = require('./api/v1/players')
+const playersRouter = require('./src/api/v1/players')
 //const tournamentsRouter = require('./api/v1/tournaments')
 
 app.set('port', (process.env.PORT || 3000))
@@ -42,3 +43,6 @@ connection.once('open', () => {
 		console.log(`express server listening on port ${app.get('port')} !!!`)
 	})
 })
+
+
+module.exports.handler = serverless(app)
