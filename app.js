@@ -11,7 +11,7 @@ const devUri = 'mongodb://localhost:27017/dart-tournament'
 const playersRouter = require('./api/v1/players')
 //const tournamentsRouter = require('./api/v1/tournaments')
 
-app.set('port', (process.env.MONGODB_URI || 3000))
+app.set('port', (process.env.MONGODB_URI || 5000))
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
