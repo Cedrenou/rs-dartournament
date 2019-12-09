@@ -30,7 +30,7 @@ router.get('/player/:id', (req, res) => {
 /* GET Top Player */
 router.get('/top-player', (req, res) => {
 	Player.find()
-		.sort({points:-1})
+		.sort({points: -1})
 		.limit(1)
 		.then(topPlayer => res.status(200).json(topPlayer))
 })
@@ -121,7 +121,22 @@ router.post('/player/third-place', (req, res) => {
 		if (err) {
 			return res.status(500).json(err)
 		}
-		res.status(202).json({msg: `UPDATED points}`})
+		res.status(202).json({msg: `UPDATED points`})
+	})
+})
+
+router.post('/player/no-points', (req, res) => {
+	const id = req.body._id
+	const nbGamesPlayed = req.body.nbGamesPlayed
+
+	const filter = {_id: id}
+	const update = {nbGamesPlayed: nbGamesPlayed + 1}
+
+	Player.findOneAndUpdate(filter, update, (err) => {
+		if (err) {
+			return res.status(500).json(err)
+		}
+		res.status(202).json({msg: `updated nbGamesPlayed`})
 	})
 })
 
