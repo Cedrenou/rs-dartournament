@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 const connection = mongoose.connection
 const app = express()
 
-const url = 'mongodb+srv://Cedric:DartDB@cluster0-ckd4d.mongodb.net/test?retryWrites=true&w=majority';
+const uri = 'mongodb+srv://Cedric:DartDB@cluster0-ckd4d.mongodb.net/test?retryWrites=true&w=majority';
 const devUri = 'mongodb://localhost:27017/dart-tournament'
 
 const playersRouter = require('./api/v1/players')
@@ -32,13 +32,13 @@ app.use((req, res) => {
 
 
 
-mongoose.connect(devUri, {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true})
 connection.on('error', (err) => {
 	console.error(`Connection to mongoDB error : ${err.message}`)
 })
 
 connection.once('open', () => {
-	console.log(`Connected to mongoDB with uri : ${devUri}`)
+	console.log(`Connected to mongoDB with uri : ${uri}`)
 	app.listen(app.get('port'), () => {
 		console.log(`express server listening on port ${app.get('port')} !!!`)
 	})
