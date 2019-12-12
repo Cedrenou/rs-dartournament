@@ -11,11 +11,11 @@ const devUri = 'mongodb://localhost:27017/dart-tournament'
 const playersRouter = require('./api/v1/players')
 //const tournamentsRouter = require('./api/v1/tournaments')
 
-app.set('port', (process.env.MONGODB_URI || 5000))
+app.set('port', (process.env.port || 5000))
 
 function requireHTTPS(req, res, next) {
 	// The 'x-forwarded-proto' check is for Heroku
-	if (!req.secure && req.get('x-forwarded-proto') !== 'https' && process.env.NODE_ENV !== "development") {
+	if (!req.secure && req.get('x-forwarded-proto')) {
 		return res.redirect('https://' + req.get('host') + req.url);
 	}
 	next();
